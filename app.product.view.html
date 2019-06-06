@@ -1,0 +1,70 @@
+<div class="container" *ngIf="!showForm">
+    <h1>Product Information</h1>
+    <input type="text" [(ngModel)]="searchValue" class="form-control" (keyup)="searchData(searchValue)">
+    <br>
+    <label class="alert alert-success" [hidden]="!showMessage" >{{message}}</label>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td *ngFor="let c of tableColumns">{{c}}</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of filteredProducts">
+                <td *ngFor="let c of tableColumns">{{product[c]}}</td>
+                <td> 
+                    <input type="button" value="Edit" class="btn btn-warning" (click)="updateData(product)" /> &nbsp;
+                    <input type="button" value="Delete" class="btn btn-danger" (click)="deleteData(product.ProductRowId)" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <input type="button" value="Get All Product" (click)="loadData()" class="btn btn-warning" />
+                </td>
+                <td>
+                    <input type="button" value="Add New Product" (click)=" save()" class="btn btn-success" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="container" *ngIf="showForm">
+    <h3>Update Product</h3>
+    <form [formGroup]="frmProduct" (ngSubmit)="submitForm()">
+        <div class="form-gorup">
+            <label for="ProductRowId">Product ROW Id</label>
+            <input type="text" class="form-control" formControlName="ProductRowId">
+        </div>
+        <div class="form-gorup">
+            <label for="ProductId">Product Id</label>
+            <input type="text" class="form-control" formControlName="ProductId">
+        </div>
+        <div class="form-gorup">
+            <label for="ProductName">Product Name</label>
+            <input type="text" class="form-control" formControlName="ProductName">
+        </div>
+        <div class="form-gorup">
+            <label for="CategoryName">Category</label>
+            <input type="text" class="form-control" formControlName="CategoryName">
+        </div>
+        <div class="form-gorup">
+            <label for="Manufacturer">Manufacturer</label>
+            <input type="text" class="form-control" formControlName="Manufacturer">
+        </div>
+        <div class="form-gorup">
+            <label for="Description">Description</label>
+            <input type="text" class="form-control" formControlName="Description">
+        </div>
+        <div class="form-gorup">
+            <label for="BasePrice">BasePrice</label>
+            <input type="text" class="form-control" formControlName="BasePrice">
+        </div>
+        <div>
+            <input type="button" class="btn btn-default" value="Cancel" (click)="Cancel()">
+            <input type="submit" class="btn btn-success" value="Save">
+        </div>
+    </form>
+</div>
